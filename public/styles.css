@@ -1,0 +1,318 @@
+body{
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-image: url('./assets/images/pattern.png');
+    background-size: 1000px;
+    background-repeat: repeat;
+}
+.banner{
+    background-color: #E0F000;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 10%;
+    min-height: 50px;
+    border: solid .5px;
+    padding: 10px 20px;
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+    text-shadow: white;
+}
+navbar .navcontainer{
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+navbar .navcontainer a{
+    text-decoration: none;
+    color: black;
+    text-shadow: 
+    -2px -2px 0 white,  
+     2px -2px 0 white,  
+    -2px  2px 0 white,  
+     2px  2px 0 white;
+}
+navbar .logo{
+    font-size: 40px;
+    text-shadow: 
+    -2px -2px 0 white,  
+     2px -2px 0 white,  
+    -2px  2px 0 white,  
+     2px  2px 0 white;
+}
+.petButtons{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 15%;
+
+}
+.petButton{
+    width: 200px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    transition: ease .5s;
+}
+.petButton:hover{
+    transform: scale(1.1);
+    transition: ease .5s;
+}
+.petButton:active{
+    transition: ease .5s;
+    transform: scale(1.1);
+    background-color: rgba(128, 128, 128, 0.5);
+}
+.petButtonimage{
+    width: 80%;
+    height: 70%;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.categoryName{
+    font-size: 25px;
+    font-weight: bold;
+}
+.catButton{
+    background-image: url('./assets/images/kitty.png');
+}
+.dogButton{
+    background-image: url('./assets/images/doggy.png');
+}
+.birdButton{
+    background-image: url('./assets/images/bird.png');
+}
+.rodentButton{
+    background-image: url('./assets/images/rodent.png');
+}
+.fishButton{
+    background-image: url('./assets/images/fish.png');
+}
+section{
+    height: auto;
+    margin: auto;
+    display: flex;
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+section[id='sales']{
+    background-color: white;
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+section[id='category']{
+    background-color: white;
+    width: 80%;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+section[id='category'] select,
+section[id='category'] label{
+    width: 300px;
+    height: 30px;
+    font-size: 25px;
+}
+section[id='about']{
+    width: 80%;
+    height: 90vh;
+    background-color: white;
+}
+section[id='cart']{
+    width: 80%;
+    height: 90vh;    
+}
+.card{
+    width: 200px;
+    height: 300px;
+    border-radius: 10px;
+    border: solid .5px gray;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    overflow: hidden;
+    padding: 5px;
+}
+.card .img{
+    height: 50px;
+    width: 50px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.title{
+    text-align: center;
+    font-size: 40px;
+}
+h1{
+    width: 100%;
+    text-align: center;
+}
+.search_container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+.search_container input{
+    outline: none;
+    width: 300px;
+    height: 25px;
+}
+.search_container button{
+    border: none;
+    height: 25px;
+    margin-left: 5px;
+    padding: 2px;
+    border: solid grey .5px;
+}
+.search_container button:hover{
+    background-color: darkgray;
+}
+.search_container button:active{
+    transform: scale(0.95);
+}
+.itemContainer{
+    width: 100%;
+    height: auto;
+    margin: auto;
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.homeBunner{
+    background-color: #FF68C8;
+    width: 100%;
+    height: 55vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.homeBunner .dog{
+    background-image: url('./assets/images/dog.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 50%;
+    height: 60%;
+}
+.homeBunner .cat{
+    background-image: url('./assets/images/cat.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 50%;
+    height: 60%;
+}
+.homeBunner .titles{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#goToSalesBtn{
+    background-color: #E0F000;
+    border: none;
+    border-radius: 15px;
+    font-size: 25px;
+    transition: ease .5s;
+    padding: 10px;
+    margin: 15px;
+}
+#goToSalesBtn:hover{
+    background-color: #bac703;
+    transform: scale(1.05);
+    transition: ease .5s;
+}
+#goToSalesBtn:active{
+    background-color: #bac703;
+    transform: scale(1.1);
+    transition: ease .5s;  
+}
+.homeBunner h5{
+    text-align: center;
+    font-size: 25px;
+    margin: 0;
+    width: 500px;
+}
+.homeBunner h1{
+    font-size: 95px;
+    margin: 0;
+    width: 500px;
+}
+#doToSalesBtn{
+    background-color: #E0F000;
+    border: none;
+    border-radius: 10px;
+    font-size: 25px;
+    padding: 15px;
+    margin: 25px;
+}
+section[id='cart'] .list{
+    background-color: white;
+    width: 50vw;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+
+}
+section[id='cart'] button{
+    background-color: #E0F000;
+    border: none;
+    border-radius: 5px;
+    width: fit-content;
+    transition: ease .5s;
+
+}
+section[id='cart'] button:hover{
+    background-color: #bac703;
+    transform: scale(1.05);
+    transition: ease .5s;
+}
+section[id='cart'] button:active{
+    background-color: #bac703;
+    transform: scale(1.1);
+    transition: ease .5s;
+}
+.addButton{
+    background-color: #FF68C8;
+    border: none;
+    border-radius: 5px;
+    transition: ease .5s;
+
+}
+.addButton:hover{
+    background-color: #ef0599;
+    transform: scale(1.05);
+    transition: ease .5s;
+}
+.addButton:active{
+    background-color: #ef0599;
+    transform: scale(1.1);
+    transition: ease .5s;
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet shop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="banner">Free Delivery! For every new customer</div>
+    <navbar>
+        <span class="logo">Pet Shop</span>
+        <div class="navcontainer">
+            <a href="#category">categories</a>
+            <a href="#sales">sales</a>
+            <a href="#cart">cart</a>
+        </div>
+    </navbar>
+    <section id="home">
+        <div class="homeBunner">
+            <div class="dog"></div>
+            <div class="titles">
+                <h1>BIG TITLE</h1>
+                <h5>
+                    It is a long established fact that a reader
+                    will be distracted by the readable content 
+                    of a page when looking at its layout.
+                </h5>
+                <button id="goToSalesBtn">go to sales</button>
+            </div>
+            <div class="cat"></div>
+
+        </div>
+        <div class="petButtons">
+            <div class="petButton" id="catPetButton">
+                <div class="petButtonimage catButton"></div>
+                <div class="categoryName">Cats</div>
+            </div>
+            <div class="petButton" id="dogPetButton">
+                <div class="petButtonimage dogButton"></div>
+                <div class="categoryName">Dogs</div>
+            </div>
+            <div class="petButton" id="birdPetButton">
+                <div class="petButtonimage birdButton"></div>
+                <div class="categoryName">Birds</div>
+            </div>
+            <div class="petButton" id="rodentPetButton">
+                <div class="petButtonimage rodentButton"></div>
+                <div class="categoryName">Rodents</div>
+            </div>
+            <div class="petButton" id="fishPetButton">
+                <div class="petButtonimage fishButton"></div>
+                <div class="categoryName">Fish</div>
+            </div>
+
+        </div>
+    </section>
+    <section id="sales">
+        <h1>Sales</h1>
+        <div class="search_container">
+            <input id="searchInput" type="text" placeholder="enter search term">
+            <button id="searchButton">Search</button>
+        </div>
+        <div id="saleItems" class="itemContainer"></div>
+    </section>
+    <section id="category">
+        <label for="categories">Category:</label>
+        <select name="categories" id="categorySelect">
+            <option value="Cats" selected>Cats</option>
+            <option value="Dogs">Dogs</option>
+            <option value="Birds">Birds</option>
+            <option value="Rodents">Rodents</option>
+            <option value="Fish">Fish</option>
+        </select>
+        <div id="categoryItems" class="itemContainer"></div>
+    </section>
+    <section id="cart">
+        <div class="list">
+            <span class="title">Your cart</span>
+            <ul></ul>
+            <button id="buy">Buy now</button>
+        </div>
+
+    </section>
+    <script src="main.js" defer></script>
+</body>
+</html>
