@@ -1,3 +1,29 @@
+@font-face {
+    font-family: 'Moo';
+    src: url('./assets/fonts/Moo_Lah_Lah/MooLahLah-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Nunito';
+    src: url('./assets/fonts/Nunito/static/Nunito-Regular.ttf') format('truetype');
+    font-weight: 200 900;
+}
+:root {
+    /* colors */
+    --primary-pink: #FF68C8;
+    --secondary-pink: #ef0599;
+    --primary-yellow: #E0F000;
+    --secondary-yellow: #bac703;
+    
+    /* font sizes */
+    --font-size-xlg: 40px;
+    --font-size-lg: 30px;
+    --font-size-md: 25px;
+    --font-size-sm: 20px;
+}
+*{
+    text-align: center;
+    font-size: var(--font-size-md);
+}
 body{
     height: 100vh;
     margin: 0;
@@ -7,12 +33,14 @@ body{
     background-repeat: repeat;
 }
 .banner{
-    background-color: #E0F000;
+    background-color: var(--primary-yellow);
     width: 100%;
     height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'Nunito', sans-serif;
+
 }
 navbar{
     display: flex;
@@ -22,7 +50,7 @@ navbar{
     min-height: 50px;
     border: solid .5px;
     padding: 10px 20px;
-    font-size: 25px;
+    font-size: var(--font-size-md);
     font-weight: bold;
     color: black;
     text-shadow: white;
@@ -34,6 +62,7 @@ navbar .navcontainer{
     justify-content: space-around;
 }
 navbar .navcontainer a{
+    font-family: 'Nunito', sans-serif;
     text-decoration: none;
     color: black;
     text-shadow: 
@@ -42,14 +71,21 @@ navbar .navcontainer a{
     -2px  2px 0 white,  
      2px  2px 0 white;
 }
-navbar .logo{
-    font-size: 40px;
+navbar .logo {
+    font-size: 66px;
+    font-weight: 100;
+    font-family: 'Moo', sans-serif;
     text-shadow: 
-    -2px -2px 0 white,  
-     2px -2px 0 white,  
-    -2px  2px 0 white,  
-     2px  2px 0 white;
+        -5px -5px 0 white,  
+        5px -5px 0 white,  
+       -5px  5px 0 white,  
+        5px  5px 0 white,
+       -10px  0px 0 white,  
+        10px  0px 0 white,  
+        0px -10px 0 white,  
+        0px  10px 0 white;
 }
+
 .petButtons{
     display: flex;
     align-items: center;
@@ -66,6 +102,8 @@ navbar .logo{
     align-items: center;
     justify-content: space-around;
     transition: ease .5s;
+    font-family: 'Nunito', sans-serif;
+
 }
 .petButton:hover{
     transform: scale(1.1);
@@ -84,7 +122,7 @@ navbar .logo{
     background-repeat: no-repeat;
 }
 .categoryName{
-    font-size: 25px;
+    font-size: var(--font-size-md);
     font-weight: bold;
 }
 .catButton{
@@ -107,10 +145,11 @@ section{
     min-height: 50vh;
     margin: auto;
     display: flex;
-    /* flex-direction: column; */
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    font-family: 'Nunito', sans-serif;
+
 }
 section[id='sales']{
     background-color: white;
@@ -130,7 +169,13 @@ section[id='category'] select,
 section[id='category'] label{
     width: 300px;
     height: 30px;
-    font-size: 25px;
+
+}
+section[id='category'] label{
+    font-size: 95px;
+    font-family: 'Moo', sans-serif;
+    width: 100%;
+    height: 100%;
 }
 section[id='about']{
     width: 80%;
@@ -164,11 +209,16 @@ section[id='cart']{
 }
 .title{
     text-align: center;
-    font-size: 40px;
+    font-size: var(--font-size-xlg);
+    font-weight: 100;
+    font-family: 'Moo', sans-serif;
 }
 h1{
     width: 100%;
     text-align: center;
+    font-weight: 100;
+    font-family: 'Moo', sans-serif;
+    font-size: 95px;
 }
 .search_container{
     width: 100%;
@@ -184,10 +234,13 @@ h1{
 }
 .search_container button{
     border: none;
-    height: 25px;
+    height: fit-content;
     margin-left: 5px;
+    background-color: var(--primary-yellow);
+    border-radius: 5px;
+    width: fit-content;
+    transition: ease .5s;
     padding: 2px;
-    border: solid grey .5px;
 }
 .search_container button:hover{
     background-color: darkgray;
@@ -207,7 +260,7 @@ h1{
 }
 
 .homeBunner{
-    background-color: #FF68C8;
+    background-color: var(--primary-pink);
     width: 100%;
     height: 55vh;
     display: flex;
@@ -237,27 +290,27 @@ h1{
     justify-content: center;
 }
 #goToSalesBtn{
-    background-color: #E0F000;
+    background-color: var(--primary-yellow);
     border: none;
     border-radius: 15px;
-    font-size: 25px;
+    font-size: var(--font-size-md);
     transition: ease .5s;
     padding: 10px;
     margin: 15px;
 }
 #goToSalesBtn:hover{
-    background-color: #bac703;
+    background-color: var(--secondary-yellow);
     transform: scale(1.05);
     transition: ease .5s;
 }
 #goToSalesBtn:active{
-    background-color: #bac703;
+    background-color: var(--secondary-yellow);
     transform: scale(1.1);
     transition: ease .5s;  
 }
 .homeBunner h5{
     text-align: center;
-    font-size: 25px;
+    font-size: var(--font-size-md);
     margin: 0;
     width: 500px;
 }
@@ -267,53 +320,55 @@ h1{
     width: 500px;
 }
 #doToSalesBtn{
-    background-color: #E0F000;
+    background-color: var(--primary-yellow);
     border: none;
     border-radius: 10px;
-    font-size: 25px;
+    font-size: var(--font-size-md);
     padding: 15px;
     margin: 25px;
 }
 section[id='cart'] .list{
     background-color: white;
     width: 50vw;
-    height: 50vh;
+    overflow-y: scroll;
+    height: 40vh;
     display: flex;
     flex-direction: column;
-
+    justify-content: space-around;
+    align-items: center;
 }
 section[id='cart'] button{
-    background-color: #E0F000;
+    background-color: var(--primary-yellow);
     border: none;
     border-radius: 5px;
     width: fit-content;
     transition: ease .5s;
-
+    padding: 2px;
 }
 section[id='cart'] button:hover{
-    background-color: #bac703;
+    background-color: var(--secondary-yellow);
     transform: scale(1.05);
     transition: ease .5s;
 }
 section[id='cart'] button:active{
-    background-color: #bac703;
+    background-color: var(--secondary-yellow);
     transform: scale(1.1);
     transition: ease .5s;
 }
 .addButton{
-    background-color: #FF68C8;
+    background-color: var(--primary-pink);
     border: none;
     border-radius: 5px;
     transition: ease .5s;
 
 }
 .addButton:hover{
-    background-color: #ef0599;
+    background-color: var(--secondary-pink);
     transform: scale(1.05);
     transition: ease .5s;
 }
 .addButton:active{
-    background-color: #ef0599;
+    background-color: var(--secondary-pink);
     transform: scale(1.1);
     transition: ease .5s;
 }
@@ -330,4 +385,14 @@ section[id='cart'] button:active{
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+.kabalah{
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 25px;
+    border-radius: 10px;
+    position: absolute;
+    margin: auto;
+    z-index: 0;
 }
