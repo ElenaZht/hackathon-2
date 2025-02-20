@@ -1,34 +1,49 @@
 var cart = []
 
 async function bringSales() {
+    document.getElementsByClassName('spinner1')[0].style.display = 'flex'
     try {
         const response = await fetch('http://localhost:3000/items/sales')
         if (response.status == 200){
             const sales = await response.json()
+            document.getElementsByClassName('spinner1')[0].style.display = 'none'
+
             return sales
         } else {
             console.log('faild to bring sales')
+            document.getElementsByClassName('spinner1')[0].style.display = 'none'
+
         }
 
     } catch (error) {
         console.error(error)
+        document.getElementsByClassName('spinner1')[0].style.display = 'none'
+
     }
 }
 
 async function bringItemsByCategory() {
     const chosenCategory = document.getElementById('categorySelect').value
+    document.getElementsByClassName('spinner2')[0].style.display = 'flex'
+
 
     try {
         const response = await fetch(`http://localhost:3000/items/${chosenCategory}`)
         if (response.status == 200){
             const categoryItems = await response.json()
+            document.getElementsByClassName('spinner2')[0].style.display = 'none'
+
             return categoryItems
         } else {
             console.log('faild to bring items')
+            document.getElementsByClassName('spinner2')[0].style.display = 'none'
+
         }
 
     } catch (error) {
         console.log('faild to bring items')
+        document.getElementsByClassName('spinner2')[0].style.display = 'none'
+
     }
 }
 
@@ -135,6 +150,7 @@ function transactionImitation(){
 }
 
 async function main(){
+    document.getElementsByClassName('spinner0')[0].style.display = 'flex'
 
     const itemsOnSale = await bringSales()
     displaySaleItems(itemsOnSale)
@@ -207,9 +223,6 @@ async function main(){
             addItemToCart(e);
         });
     });
-    // addButton.addEventListener('click', (e) => {
-    //     addItemToCart(e)
-    // })
 
     //buy now button
     const buy = document.getElementById('buy')
@@ -217,5 +230,7 @@ async function main(){
         e.preventDefault()
         transactionImitation()
     })
+    document.getElementsByClassName('spinner0')[0].style.display = 'none'
+
 }
 main()
