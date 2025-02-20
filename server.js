@@ -7,6 +7,15 @@ import router from './routes/itemsRouter.js'
 
 const app = express()
 
+app.set('view engine', 'ejs');
+app.get('/', (req, res)=>{
+    res.render('index', {cart: cart})
+})
+let cart = []
+app.get('/cart', (req, res) => {
+    res.status(200).json(cart)
+})
+
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())

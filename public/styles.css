@@ -85,7 +85,20 @@ navbar .logo {
         0px -10px 0 white,  
         0px  10px 0 white;
 }
-
+.footerlogo{
+    font-size: 66px;
+    font-weight: 100;
+    font-family: 'Moo', sans-serif;
+    text-shadow: 
+        -5px -5px 0 white,  
+        5px -5px 0 white,  
+       -5px  5px 0 white,  
+        5px  5px 0 white,
+       -10px  0px 0 white,  
+        10px  0px 0 white,  
+        0px -10px 0 white,  
+        0px  10px 0 white; 
+}
 .petButtons{
     display: flex;
     align-items: center;
@@ -186,6 +199,12 @@ section[id='cart']{
     width: 80%;
     height: 90vh;    
 }
+section[id='footer']{
+    min-height: auto;
+    width: 100%;
+    background-color: #E0F000;
+
+}
 .card{
     width: 200px;
     height: 300px;
@@ -219,6 +238,7 @@ h1{
     font-weight: 100;
     font-family: 'Moo', sans-serif;
     font-size: 95px;
+    margin: 0;
 }
 .search_container{
     width: 100%;
@@ -344,6 +364,7 @@ section[id='cart'] button{
     width: fit-content;
     transition: ease .5s;
     padding: 2px;
+    display: none;
 }
 section[id='cart'] button:hover{
     background-color: var(--secondary-yellow);

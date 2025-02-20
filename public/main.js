@@ -1,5 +1,3 @@
-var cart = []
-
 async function bringSales() {
     document.getElementsByClassName('spinner1')[0].style.display = 'flex'
     try {
@@ -106,7 +104,7 @@ async function navigateToCategory(category, event) {
 
 }
 
-function addItemToCart(e){
+function addItemToCart(e, cart){
     e.preventDefault()
     if (e.target.classList.contains('addButton')) {
         const button = e.target;
@@ -116,11 +114,12 @@ function addItemToCart(e){
             price: button.dataset.price
         };
         cart.push(product)
-        displayCart()
+        displayCart(cart)
+        document.querySelector('section[id="cart"] button').style.display = 'flex'
     }
 }
 
-function displayCart(){
+function displayCart(cart){
     const cart_container = document.querySelector('div.list ul')
     cart_container.innerHTML = ''
     let sum = 0
@@ -137,10 +136,9 @@ function displayCart(){
     cart_container.appendChild(total)
 }
 
-function transactionImitation(){
+function transactionImitation(cart){
     if (cart.length){
         cart = []
-        // displayCart()
         const cart_container = document.querySelector('div.list ul')
         const kabalah = document.createElement('div')
         kabalah.classList.add('kabalah')
@@ -150,6 +148,9 @@ function transactionImitation(){
 }
 
 async function main(){
+    let resp = await fetch('http://localhost:3000/cart')
+    let cart = await resp.json()
+
     document.getElementsByClassName('spinner0')[0].style.display = 'flex'
 
     const itemsOnSale = await bringSales()
@@ -220,7 +221,7 @@ async function main(){
     const addButton = document.getElementsByClassName('addButton')
     Array.from(addButton).forEach(button => {
         button.addEventListener('click', (e) => {
-            addItemToCart(e);
+            addItemToCart(e, cart);
         });
     });
 
@@ -228,7 +229,7 @@ async function main(){
     const buy = document.getElementById('buy')
     buy.addEventListener('click', (e) => {
         e.preventDefault()
-        transactionImitation()
+        transactionImitation(cart)
     })
     document.getElementsByClassName('spinner0')[0].style.display = 'none'
 
