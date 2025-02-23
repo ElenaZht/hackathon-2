@@ -357,6 +357,13 @@ section[id='cart'] .list{
     justify-content: space-around;
     align-items: center;
 }
+section[id='cart'] .list > ul{
+    min-width: 500px;
+}
+section[id='cart'] .list > ul > p{
+    display: flex;
+    justify-content: space-between;
+}
 section[id='cart'] button{
     background-color: var(--primary-yellow);
     border: none;
@@ -364,7 +371,7 @@ section[id='cart'] button{
     width: fit-content;
     transition: ease .5s;
     padding: 2px;
-    display: none;
+    /* display: none; */
 }
 section[id='cart'] button:hover{
     background-color: var(--secondary-yellow);

@@ -1,4 +1,4 @@
-import { getItemsFromDB, getSalesFromDB } from '../models/itemsModel.js'
+import { getItemsFromDB, getSalesFromDB, addOrderToDB } from '../models/itemsModel.js'
 
 export const getAllCategoryItems = async(req, res) => {
     try {
@@ -28,5 +28,18 @@ export const getSalesItems = async(req, res) => {
     } catch (error) {
        console.error(error)
        res.status(500).json({"message": "something get wrong"})
+    }
+}
+
+export const addOrder = async(req, res) => {
+    try {
+        const orderId = await addOrderToDB(req.body)
+        if (orderId){
+            res.status(200).json({"message": "order added successfuly", "orderId": orderId})
+        } else {
+            res.status(500).json({"message": "failed to add order"})
+        }
+    } catch (error) {
+        res.status(500).json({"message": "server error"})
     }
 }

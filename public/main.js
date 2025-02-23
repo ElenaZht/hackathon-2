@@ -64,6 +64,11 @@ function createItemCard(item){
     addButton.dataset.id = item.id; // store item obj inside button to get access to it by click
     addButton.dataset.title = item.title;
     addButton.dataset.price = item.price;
+    addButton.addEventListener('click', (e) => {
+        e.preventDefault()
+        addItemToCart(e)
+    })
+            
 
     card.appendChild(image)
     card.appendChild(title)
@@ -104,8 +109,13 @@ async function navigateToCategory(category, event) {
 
 }
 
-function addItemToCart(e, cart){
-    e.preventDefault()
+function addItemToCart(e){
+    console.log('add item func')
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    if (!cart) {  // in case it is missing
+        cart = [];
+    }
+
     if (e.target.classList.contains('addButton')) {
         const button = e.target;
         const product = {
@@ -114,20 +124,49 @@ function addItemToCart(e, cart){
             price: button.dataset.price
         };
         cart.push(product)
-        displayCart(cart)
+        //add to local storage
+        localStorage.setItem('cart', JSON.stringify(cart))
+
+        displayCart()
         document.querySelector('section[id="cart"] button').style.display = 'flex'
     }
 }
 
-function displayCart(cart){
+function removeFromCart(item){
+    //remove from store
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    if (!cart) {  // in case it is missing
+        cart = [];
+        displayCart()
+        return
+    }
+    const idx = cart.findIndex(cartItem => cartItem.title === item.title)
+    console.log('idx to remove ', idx)
+    if (idx !== -1){
+        cart.splice(idx, 1)
+        localStorage.setItem('cart', JSON.stringify(cart))
+        displayCart()
+    }
+ 
+}
+
+function displayCart(){
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    console.log('display cart: ', cart)
     const cart_container = document.querySelector('div.list ul')
     cart_container.innerHTML = ''
     let sum = 0
     for (let i of cart){
-        console.log(i)
         const item = document.createElement('p')
         item.textContent = i.title + ' ' + i.price + '₪'
         cart_container.appendChild(item)
+        const remButton = document.createElement('button')
+        remButton.textContent = 'x'
+        remButton.addEventListener('click', (e) => {
+            e.preventDefault()
+            removeFromCart(i)
+        })
+        item.appendChild(remButton)
         sum += +i.price
     }
     cart_container.appendChild(document.createElement('hr'))
@@ -136,101 +175,170 @@ function displayCart(cart){
     cart_container.appendChild(total)
 }
 
-function transactionImitation(cart){
-    if (cart.length){
-        cart = []
-        const cart_container = document.querySelector('div.list ul')
-        const kabalah = document.createElement('div')
-        kabalah.classList.add('kabalah')
-        kabalah.innerHTML = '<h1>Thank you!</h1><h4>your order already being proccessing</h4><hr><p>Order ID:  23456</p>'
-        cart_container.appendChild(kabalah)
+async function transactionImitation(){
+    let cart = JSON.parse(localStorage.getItem('cart'))
+    if (!cart){
+        localStorage.setItem('cart', JSON.stringify([]))
+        return
+    }
+    if (cart.length) {
+        
+        try {
+            let resp = await fetch('http://localhost:3000/items/cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ cart })
+            });
+
+            if (resp.status === 200){
+                //success
+                const orderInfo = await resp.json()
+                const orderID = orderInfo.orderId
+                cart = []
+                localStorage.setItem('cart', JSON.stringify(cart))
+                displayCart()
+
+                const cart_container = document.querySelector('div.list ul')
+                const kabalah = document.createElement('div')
+                kabalah.classList.add('kabalah')
+                kabalah.innerHTML = `<h1>Thank you!</h1><h4>your order already being proccessing</h4><hr><p>Order ID:  ${orderID}</p>`
+                cart_container.appendChild(kabalah)
+            } else {
+                //fail
+                const cart_container = document.querySelector('div.list ul')
+                const failMessage = document.createElement('div')
+                failMessage.classList.add('kabalah')
+                failMessage.innerHTML = '<h1>Ooops!</h1><h4>your order failed, try again latter</h4>'
+                cart_container.appendChild(failMessage)
+            }
+             
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 }
 
-async function main(){
-    let resp = await fetch('http://localhost:3000/cart')
-    let cart = await resp.json()
-
-    document.getElementsByClassName('spinner0')[0].style.display = 'flex'
-
+async function renderItemsOnSale(){
     const itemsOnSale = await bringSales()
     displaySaleItems(itemsOnSale)
+}
 
+async function renderItemsByCategory() {
+    const itemsOfCategory = await bringItemsByCategory()
+    displayItemsByCategory(itemsOfCategory)
+}
+
+async function renderCart() {
+    //create cart in local store
+    let cart = JSON.parse(localStorage.getItem('cart'))
+    if (!cart){
+        localStorage.setItem('cart', JSON.stringify([]));
+    }
+    displayCart() 
+}
+
+async function addEventListeners(){
+
+    // *********** home section ***********
+
+        // home section - go to sales button
+        const goToSalesBtn = document.getElementById('goToSalesBtn')
+        goToSalesBtn.addEventListener('click', (e) => {
+            e.preventDefault()
+            document.getElementById("sales").scrollIntoView({ behavior: "smooth" })
+        })
+        // home section - pet buttons
+            //cats button
+            const catPetButton = document.getElementById('catPetButton')
+            catPetButton.addEventListener('click', async (e) => {
+            navigateToCategory('Cats', e)
+            })
+            //digs button
+            const dogPetButton = document.getElementById('dogPetButton')
+            dogPetButton.addEventListener('click', (e) => {
+                navigateToCategory('Dogs', e)
+            })
+            //birds button
+            const birdPetButton = document.getElementById('birdPetButton')
+            birdPetButton.addEventListener('click', (e) => {
+                navigateToCategory('Birds', e)
+            })
+            //rodents button
+            const rodentPetButton = document.getElementById('rodentPetButton')
+            rodentPetButton.addEventListener('click', (e) => {
+                navigateToCategory('Rodents', e)
+            })
+            //fish button
+            const fishPetButton = document.getElementById('fishPetButton')
+            fishPetButton.addEventListener('click', (e) => {
+                navigateToCategory('Fish', e)
+            })
+    // ------------------------------------
     
-    const searchButton = document.getElementById('searchButton')
-    searchButton.addEventListener('click',  (e) => {
+    // *********** sales section ***********
+
+        // sales section - search
+        const searchButton = document.getElementById('searchButton')
+        const itemsOnSale = await bringSales()
+        searchButton.addEventListener('click',  (e) => {
+            e.preventDefault()
+            displaySaleItems(itemsOnSale)
+        })
+        const searchInput = document.getElementById('searchInput')
+        searchInput.addEventListener('input', (e) => {
         e.preventDefault()
         displaySaleItems(itemsOnSale)
-   })
-    const searchInput = document.getElementById('searchInput')
-    searchInput.addEventListener('input', (e) => {
-        e.preventDefault()
-        displaySaleItems(itemsOnSale)
-   })
+        })
+    // ------------------------------------
 
-   const itemsOfCategory = await bringItemsByCategory()
-   displayItemsByCategory(itemsOfCategory)
+    // *********** category section ***********
 
-   //go to sales button
-   const goToSalesBtn = document.getElementById('goToSalesBtn')
-   goToSalesBtn.addEventListener('click', (e) => {
-        e.preventDefault()
-        document.getElementById("sales").scrollIntoView({ behavior: "smooth" })
-   })
+        //category section - select category
+        const selectCategory = document.getElementById('categorySelect')
+        selectCategory.addEventListener('change', async (e) => {
+            e.preventDefault()
+            const categoryItems = await bringItemsByCategory()
+            displayItemsByCategory(categoryItems)
+        })
+    // ------------------------------------
 
-   //select category
-   const selectCategory = document.getElementById('categorySelect')
-   selectCategory.addEventListener('change', async (e) => {
-        e.preventDefault()
-        const categoryItems = await bringItemsByCategory()
-        displayItemsByCategory(categoryItems)
-   })
+    // *********** cart section ***********
 
-   //pet buttons
-   //cats button
-    const catPetButton = document.getElementById('catPetButton')
-    catPetButton.addEventListener('click', async (e) => {
-        navigateToCategory('Cats', e)
-   })
+        // cart section - closing kabalah by side click
+        const cartSection = document.querySelector('section[id="cart"]')
+        cartSection.addEventListener('click', (e) => {
+            e.preventDefault()
+            const kabalah = document.getElementsByClassName('kabalah')[0]
+            if (kabalah){
+                kabalah.style.display = 'none'
+            }
+        })
 
-   //digs button
-   const dogPetButton = document.getElementById('dogPetButton')
-   dogPetButton.addEventListener('click', (e) => {
-        navigateToCategory('Dogs', e)
-   })
+        //cart section - buy now button
+        const buy = document.getElementById('buy')
+        buy.addEventListener('click', (e) => {
+            e.preventDefault()
+            transactionImitation()
+        })
+    // ------------------------------------
+}
 
-    //birds button
-    const birdPetButton = document.getElementById('birdPetButton')
-    birdPetButton.addEventListener('click', (e) => {
-        navigateToCategory('Birds', e)
-    })
+async function main(){
+    //activate spinner
+    document.getElementsByClassName('spinner0')[0].style.display = 'flex' 
 
-    //rodents button
-    const rodentPetButton = document.getElementById('rodentPetButton')
-    rodentPetButton.addEventListener('click', (e) => {
-        navigateToCategory('Rodents', e)
-    })
+    // render dynamic content
+    await renderItemsOnSale()
+    await renderItemsByCategory()
+    await renderCart()
 
-    //fish button
-    const fishPetButton = document.getElementById('fishPetButton')
-    fishPetButton.addEventListener('click', (e) => {
-        navigateToCategory('Fish', e)
-    })
+    // provide eventListeners
+    addEventListeners()
 
-    //add to cart button
-    const addButton = document.getElementsByClassName('addButton')
-    Array.from(addButton).forEach(button => {
-        button.addEventListener('click', (e) => {
-            addItemToCart(e, cart);
-        });
-    });
-
-    //buy now button
-    const buy = document.getElementById('buy')
-    buy.addEventListener('click', (e) => {
-        e.preventDefault()
-        transactionImitation(cart)
-    })
+    // deactivate spinner
     document.getElementsByClassName('spinner0')[0].style.display = 'none'
 
 }

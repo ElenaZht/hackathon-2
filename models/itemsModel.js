@@ -17,3 +17,17 @@ export const getSalesFromDB = async () => {
       console.error('Error fetching items:', err);
     }
 };
+
+export const addOrderToDB = async (order) => {
+
+    try {
+      const result = await db.raw(
+        `INSERT INTO orders (order_items) VALUES (?::jsonb) RETURNING id;`,
+        [JSON.stringify(order)]
+      );
+      return result.rows[0].id;
+
+    } catch (error) {
+      console.error('Error adding order:', error);
+    }
+}

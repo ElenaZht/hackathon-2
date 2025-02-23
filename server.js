@@ -9,11 +9,7 @@ const app = express()
 
 app.set('view engine', 'ejs');
 app.get('/', (req, res)=>{
-    res.render('index', {cart: cart})
-})
-let cart = []
-app.get('/cart', (req, res) => {
-    res.status(200).json(cart)
+    res.render('index')
 })
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
